@@ -1,218 +1,95 @@
-Below is a **comprehensive, professional README.md** tailored exactly to **your multimodal Parkinson’s detection project** (handwriting + MRI + voice, SVM/CNN, Git LFS-aware).
-You can **copy–paste this directly into `README.md`**.
+<div align="center">
+
+# 🧠 NeuroSense — Multimodal Parkinson's Detection
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=A855F7&center=true&vCenter=true&width=720&lines=Handwriting+%2B+MRI+%2B+voice+%E2%86%92+a+single+risk+score.;Classical+ML+%2B+deep+learning%2C+fused.;A+non-invasive+screening+proof-of-concept." alt="Typing SVG" />
+
+<p>
+  <img src="https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenCV-5C3EE8?logo=opencv&logoColor=white" />
+  <img src="https://img.shields.io/badge/scikit--learn-F7931E?logo=scikit-learn&logoColor=white" />
+  <img src="https://img.shields.io/badge/scikit--image-013243" />
+  <img src="https://img.shields.io/badge/librosa-FF8C00" />
+</p>
+
+<em>A machine-learning screening app that analyzes handwriting patterns, MRI brain scans, and voice recordings to estimate the likelihood of Parkinson's disease — combining classical ML and deep learning into one probabilistic risk score.</em>
+
+</div>
 
 ---
 
-# 🧠 Multimodal Parkinson’s Disease Detection System
+## 📌 Overview
 
-A machine learning–based **multimodal screening application** that analyzes **handwriting patterns, MRI brain scans, and voice recordings** to estimate the likelihood of Parkinson’s disease. The system combines classical machine learning and deep learning techniques to provide a **probabilistic, non-invasive risk assessment** intended for clinical decision support.
-
----
-
-## 📌 Project Overview
-
-Parkinson’s disease affects motor control, neurological structure, and speech characteristics. Relying on a single diagnostic signal can be unreliable. This project addresses that limitation by integrating **three complementary data modalities**:
+Parkinson's disease affects motor control, neurological structure, and speech. Relying on a single
+diagnostic signal can be unreliable, so NeuroSense integrates **three complementary modalities** and
+fuses their outputs into a final risk assessment:
 
 * ✍️ **Handwriting** (spiral & wave drawings)
 * 🧠 **MRI brain scans**
 * 🎙️ **Voice recordings**
 
-Each modality is analyzed independently using domain-appropriate models, and their outputs are combined to generate a final risk score.
+> ⚠️ **Disclaimer:** This is **not a diagnostic tool.** It is designed to assist clinicians and
+> researchers by providing early risk indicators, not to replace professional diagnosis.
 
-⚠️ **Disclaimer**: This system is **not a diagnostic tool**. It is designed to assist clinicians and researchers by providing early risk indicators.
+<table>
+  <tr>
+    <td align="center"><img src="handwriting/spiral.png" width="180"/><br/><sub>Spiral drawing</sub></td>
+    <td align="center"><img src="handwriting/wave.png" width="180"/><br/><sub>Wave drawing</sub></td>
+    <td align="center"><img src="mri/sample.png" width="180"/><br/><sub>MRI scan</sub></td>
+  </tr>
+</table>
 
----
+## 🧩 System architecture
 
-## 🧩 System Architecture
+| Modality | Input | Processing | Model | Output |
+|---|---|---|---|---|
+| ✍️ **Handwriting** | Spiral & wave drawings | Grayscale, resize, Otsu thresholding, HOG features | SVM | Probability |
+| 🧠 **MRI** | Brain scans | Feature extraction / learning | ML/DL model | Probability |
+| 🎙️ **Voice** | Short recordings | Audio signal feature extraction (librosa) | ML classifier | Probability |
+| 🔗 **Fusion** | All three | Decision fusion | — | **Aggregated risk score** |
 
-### 1. Handwriting Analysis
+Each modality is analyzed independently with a domain-appropriate model, and the results are
+combined into a single probabilistic output.
 
-* Input: Spiral and wave drawings
-* Preprocessing: Grayscale conversion, resizing, Otsu thresholding
-* Feature Extraction: Histogram of Oriented Gradients (HOG)
-* Model: Support Vector Machine (SVM)
-* Output: Probability of Parkinson’s disease
+## 🛠️ Technologies
 
-### 2. MRI Scan Analysis
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?logo=opencv&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikit-learn&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white)
+![librosa](https://img.shields.io/badge/librosa-FF8C00)
 
-* Input: Preprocessed MRI brain scans
-* Feature extraction / learning via ML/DL models
-* Output: Parkinson’s probability score
-
-### 3. Voice Analysis
-
-* Input: Short voice recordings
-* Feature extraction using audio signal processing
-* Model: Machine learning classifier
-* Output: Parkinson’s probability score
-
-### 4. Decision Fusion
-
-* Combines predictions from handwriting, MRI, and voice
-* Final output: **Aggregated probabilistic risk score**
-
----
-
-## 🛠️ Technologies Used
-
-* **Python 3.9+**
-* **OpenCV** – image preprocessing
-* **scikit-image** – HOG feature extraction
-* **scikit-learn** – SVM, scaling, evaluation
-* **TensorFlow / Keras** – CNN models (MRI)
-* **NumPy / Pandas** – data handling
-* **Joblib** – model serialization
-* **Git LFS** – large file management (`.npy`, `.pkl`, audio)
-
----
-
-## 📁 Project Structure
-
-```
-project/
-├── dataset_handwriting/
-│   ├── training/
-│   └── testing/
-├── mri/
-├── audio/
-├── models/
-│   ├── *.pkl
-│   └── *.h5
-├── src/
-│   ├── handwriting_model.py
-│   ├── mri_model.py
-│   └── audio_model.py
-├── app.py
-├── requirements.txt
-├── .gitignore
-├── .gitattributes
-└── README.md
-```
-
----
-
-## 🚀 Setup Instructions
-
-### 1. Clone the Repository
+## 🚀 Getting started
 
 ```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
-```
-
-### 2. Install Dependencies
-
-```bash
+# 1. Install dependencies
 pip install -r requirements.txt
-```
 
-### 3. (Optional) Enable Git LFS
-
-```bash
-git lfs install
-git lfs pull
-```
-
----
-
-## ▶️ Running the Application
-
-```bash
+# 2. Run the Flask app
 python app.py
 ```
 
-Upload:
+Then open the local URL Flask prints and upload a sample for each modality.
 
-* Spiral & wave handwriting images
-* MRI scan
-* Voice recording
+> **Note:** the trained models in `models/` are tracked with Git LFS — make sure
+> [`git lfs`](https://git-lfs.com) is installed before cloning so the `.pkl` files download in full.
 
-The system outputs:
-
-* Individual modality predictions
-* Final Parkinson’s likelihood score
-
----
-
-## 📊 Model Outputs
-
-* Probabilistic predictions (0–100%)
-* Individual modality confidence
-* Final aggregated assessment
-
-Example:
+## 🗂️ Project layout
 
 ```
-Spiral Likelihood: 68%
-Wave Likelihood: 72%
-MRI Likelihood: 75%
-Voice Likelihood: 64%
-
-Final Parkinson’s Risk: 69.75%
+app.py            Flask web app
+templates/        web UI
+handwriting/      spiral & wave analysis (HOG + SVM) + notebooks
+mri/              MRI scan analysis + notebooks
+sound/            voice analysis
+models/           trained models + scalers + encoders (Git LFS)
+requirements.txt
 ```
 
 ---
 
-## 📈 Evaluation Metrics
-
-* Accuracy
-* Precision
-* Recall
-* F1-score
-* Confusion Matrix
-* ROC-AUC (where applicable)
-
----
-
-## 🔒 Ethical Considerations
-
-* No personal data stored permanently
-* Designed for **screening support**, not diagnosis
-* Probabilistic outputs to avoid overconfidence
-* Modular architecture for transparency and auditability
-
----
-
-## 🧠 Key Concepts Demonstrated
-
-* Multimodal machine learning
-* Feature engineering (HOG)
-* Classical ML (SVM)
-* Deep learning (CNNs)
-* Medical image & audio processing
-* Model deployment and inference
-* Git LFS for ML projects
-
----
-
-## 📌 Future Improvements
-
-* Larger, clinically validated datasets
-* Explainable AI (Grad-CAM, SHAP)
-* Temporal voice analysis
-* Web-based deployment (Flask/FastAPI)
-* Clinical validation studies
-
----
-
-## 👤 Author
-
-**Ayush Mishra**
-Student Project – Multimodal AI for Healthcare
-
----
-
-## 📜 License
-
-This project is intended for **academic and research purposes only**.
-
----
-
-If you want, I can also:
-
-* Shorten this for **GitHub landing page**
-* Add **installation badges**
-* Write a **research-paper-style abstract**
-* Convert it into a **Flask app README**
-
-Just say 👍
+<div align="center">
+<sub>Built by <a href="https://github.com/hirakparekh">@hirakparekh</a> · A non-invasive screening proof-of-concept · Not for clinical diagnosis</sub>
+</div>
